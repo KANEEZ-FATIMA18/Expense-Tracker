@@ -9,7 +9,10 @@ import {
   TrendingUp, 
   TrendingDown, 
   Plus, 
-  LogOut
+  LogOut,
+  ArrowUpRight,
+  ArrowDownRight,
+  CreditCard
 } from 'lucide-react';
 
 const Dashboard = () => {
@@ -59,122 +62,135 @@ const Dashboard = () => {
 
   if (authLoading) {
     return (
-      <div className="min-h-screen bg-black flex items-center justify-center">
-        <div className="w-12 h-12 border-2 border-zinc-800 border-t-green-500 rounded-full animate-spin"></div>
+      <div className="min-h-screen flex items-center justify-center bg-[#09090b]">
+        <div className="w-10 h-10 border-2 border-zinc-800 border-t-emerald-500 rounded-full animate-spin"></div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-[#09090b] text-zinc-100">
       
       {/* Header */}
-      <header className="sticky top-0 z-40 bg-black/80 backdrop-blur-xl border-b border-zinc-800">
-        <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-green-500 rounded-xl flex items-center justify-center">
-              <Wallet className="w-5 h-5 text-black" />
+      <header className="sticky top-0 z-40 border-b border-zinc-800/50 bg-[#09090b]/80 backdrop-blur-xl">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+          <div className="flex items-center gap-2.5">
+            <div className="w-8 h-8 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-lg flex items-center justify-center">
+              <Wallet className="w-4 h-4 text-black" strokeWidth={2.5} />
             </div>
-            <div>
-              <h1 className="text-lg font-bold">Expense Tracker</h1>
-              <p className="text-xs text-gray-500 hidden sm:block">Manage your finances</p>
-            </div>
+            <span className="font-semibold text-base tracking-tight">Expense Tracker</span>
           </div>
           
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2">
             <button
               onClick={() => setShowForm(true)}
-              className="px-4 py-2.5 bg-green-500 text-black font-semibold rounded-xl hover:bg-green-400 active:scale-95 transition-all flex items-center gap-2 text-sm"
+              className="h-9 px-4 bg-emerald-500 text-black font-medium text-sm rounded-lg hover:bg-emerald-400 active:scale-95 transition-all flex items-center gap-2"
             >
-              <Plus className="w-4 h-4" />
-              <span className="hidden sm:inline">Add Transaction</span>
+              <Plus className="w-4 h-4" strokeWidth={2.5} />
+              <span className="hidden sm:inline">Add</span>
             </button>
             <button 
               onClick={handleSignOut} 
-              className="p-2.5 text-gray-500 hover:text-white hover:bg-zinc-800 rounded-xl transition-colors"
+              className="h-9 w-9 flex items-center justify-center text-zinc-500 hover:text-zinc-300 hover:bg-zinc-800 rounded-lg transition-colors"
             >
-              <LogOut className="w-5 h-5" />
+              <LogOut className="w-4 h-4" />
             </button>
           </div>
         </div>
       </header>
 
       {/* Main Content */}
-      <main className="max-w-6xl mx-auto px-6 py-8 space-y-8">
+      <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
         
         {/* Balance Card */}
-        <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 md:p-8 animate-fade-in-up">
-          <div className="flex items-center justify-between mb-6">
-            <div>
-              <p className="text-sm text-gray-500 mb-2">Total Balance</p>
-              <h2 className="text-3xl md:text-4xl font-bold">{formatCurrency(balance)}</h2>
+        <div className="relative overflow-hidden rounded-2xl border border-zinc-800/50 bg-gradient-to-br from-zinc-900 to-zinc-950 p-6 md:p-8 animate-fade-in-up">
+          {/* Background decoration */}
+          <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+          
+          <div className="relative">
+            <div className="flex items-center justify-between mb-6">
+              <div>
+                <p className="text-sm text-zinc-500 mb-1">Total Balance</p>
+                <h2 className="text-3xl md:text-4xl font-bold tracking-tight">{formatCurrency(balance)}</h2>
+              </div>
             </div>
-            <div className="w-14 h-14 bg-green-500/10 rounded-2xl flex items-center justify-center hidden sm:flex">
-              <Wallet className="w-7 h-7 text-green-500" />
+            
+            <div className="grid grid-cols-2 gap-4">
+              <div className="rounded-xl bg-zinc-950/50 border border-zinc-800/50 p-4">
+                <div className="flex items-center gap-2 mb-2">
+                  <div className="w-6 h-6 rounded-md bg-emerald-500/10 flex items-center justify-center">
+                    <ArrowUpRight className="w-3.5 h-3.5 text-emerald-500" strokeWidth={2.5} />
+                  </div>
+                  <span className="text-xs text-zinc-500">Income</span>
+                </div>
+                <p className="text-lg font-semibold text-emerald-500">{formatCurrency(totalIncome)}</p>
+              </div>
+              <div className="rounded-xl bg-zinc-950/50 border border-zinc-800/50 p-4">
+                <div className="flex items-center gap-2 mb-2">
+                  <div className="w-6 h-6 rounded-md bg-red-500/10 flex items-center justify-center">
+                    <ArrowDownRight className="w-3.5 h-3.5 text-red-500" strokeWidth={2.5} />
+                  </div>
+                  <span className="text-xs text-zinc-500">Expenses</span>
+                </div>
+                <p className="text-lg font-semibold text-red-500">{formatCurrency(totalExpense)}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Stats Row */}
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4 animate-fade-in-up" style={{ animationDelay: '0.05s' }}>
+          <div className="rounded-xl border border-zinc-800/50 bg-zinc-900/50 p-4">
+            <div className="flex items-center gap-2 mb-3">
+              <div className="w-8 h-8 rounded-lg bg-zinc-800/50 flex items-center justify-center">
+                <TrendingUp className="w-4 h-4 text-emerald-500" />
+              </div>
+              <span className="text-xs text-zinc-500">Income Rate</span>
+            </div>
+            <p className="text-xl font-semibold">{Math.round((totalIncome / totalFlow) * 100)}%</p>
+            <div className="w-full h-1 bg-zinc-800 rounded-full mt-3 overflow-hidden">
+              <div
+                className="h-full bg-emerald-500 transition-all duration-1000"
+                style={{ width: `${(totalIncome / totalFlow) * 100}%` }}
+              ></div>
             </div>
           </div>
           
-          <div className="grid grid-cols-2 gap-4">
-            <div className="bg-black rounded-xl p-4 md:p-5">
-              <div className="flex items-center gap-2 mb-3">
-                <div className="w-8 h-8 bg-green-500/10 rounded-lg flex items-center justify-center">
-                  <TrendingUp className="w-4 h-4 text-green-500" />
-                </div>
-                <span className="text-xs text-gray-500">Income</span>
+          <div className="rounded-xl border border-zinc-800/50 bg-zinc-900/50 p-4">
+            <div className="flex items-center gap-2 mb-3">
+              <div className="w-8 h-8 rounded-lg bg-zinc-800/50 flex items-center justify-center">
+                <TrendingDown className="w-4 h-4 text-red-500" />
               </div>
-              <p className="text-xl md:text-2xl font-bold text-green-500">{formatCurrency(totalIncome)}</p>
-              <div className="w-full h-1.5 bg-zinc-800 rounded-full mt-3 overflow-hidden">
-                <div
-                  className="h-full bg-green-500 transition-all duration-1000"
-                  style={{ width: `${(totalIncome / totalFlow) * 100}%` }}
-                ></div>
-              </div>
+              <span className="text-xs text-zinc-500">Expense Rate</span>
             </div>
-            <div className="bg-black rounded-xl p-4 md:p-5">
-              <div className="flex items-center gap-2 mb-3">
-                <div className="w-8 h-8 bg-red-500/10 rounded-lg flex items-center justify-center">
-                  <TrendingDown className="w-4 h-4 text-red-500" />
-                </div>
-                <span className="text-xs text-gray-500">Expenses</span>
-              </div>
-              <p className="text-xl md:text-2xl font-bold text-red-500">{formatCurrency(totalExpense)}</p>
-              <div className="w-full h-1.5 bg-zinc-800 rounded-full mt-3 overflow-hidden">
-                <div
-                  className="h-full bg-red-500 transition-all duration-1000"
-                  style={{ width: `${(totalExpense / totalFlow) * 100}%` }}
-                ></div>
-              </div>
+            <p className="text-xl font-semibold">{Math.round((totalExpense / totalFlow) * 100)}%</p>
+            <div className="w-full h-1 bg-zinc-800 rounded-full mt-3 overflow-hidden">
+              <div
+                className="h-full bg-red-500 transition-all duration-1000"
+                style={{ width: `${(totalExpense / totalFlow) * 100}%` }}
+              ></div>
             </div>
+          </div>
+          
+          <div className="rounded-xl border border-zinc-800/50 bg-zinc-900/50 p-4 col-span-2 md:col-span-1">
+            <div className="flex items-center gap-2 mb-3">
+              <div className="w-8 h-8 rounded-lg bg-zinc-800/50 flex items-center justify-center">
+                <CreditCard className="w-4 h-4 text-zinc-400" />
+              </div>
+              <span className="text-xs text-zinc-500">Transactions</span>
+            </div>
+            <p className="text-xl font-semibold">{expenses.length}</p>
+            <p className="text-xs text-zinc-600 mt-1">Total records</p>
           </div>
         </div>
 
-        {/* Quick Actions - Mobile */}
-        <div className="grid grid-cols-2 gap-3 md:hidden animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
-          <button
-            onClick={() => setShowForm(true)}
-            className="bg-zinc-900 border border-zinc-800 rounded-xl p-4 flex flex-col items-center gap-3 hover:border-green-500/50 transition-colors"
-          >
-            <div className="w-12 h-12 bg-green-500/10 rounded-xl flex items-center justify-center">
-              <TrendingUp className="w-6 h-6 text-green-500" />
-            </div>
-            <span className="text-sm font-medium">Add Income</span>
-          </button>
-          <button
-            onClick={() => setShowForm(true)}
-            className="bg-zinc-900 border border-zinc-800 rounded-xl p-4 flex flex-col items-center gap-3 hover:border-red-500/50 transition-colors"
-          >
-            <div className="w-12 h-12 bg-red-500/10 rounded-xl flex items-center justify-center">
-              <TrendingDown className="w-6 h-6 text-red-500" />
-            </div>
-            <span className="text-sm font-medium">Add Expense</span>
-          </button>
-        </div>
-
         {/* Transactions */}
-        <div className="animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
-          <div className="flex items-center justify-between mb-6">
-            <h3 className="text-lg md:text-xl font-semibold">Recent Transactions</h3>
-            <span className="text-sm text-gray-500">{expenses.length} total</span>
+        <div className="animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-base font-semibold">Transactions</h3>
+            {expenses.length > 0 && (
+              <span className="text-xs text-zinc-600">{expenses.length} total</span>
+            )}
           </div>
           <ExpenseList expenses={expenses} onEdit={handleEdit} />
         </div>
@@ -183,8 +199,8 @@ const Dashboard = () => {
       {/* Modal */}
       {showForm && (
         <div className="fixed inset-0 z-50 flex items-end md:items-center justify-center animate-fade-in">
-          <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" onClick={handleCloseForm}></div>
-          <div className="relative z-10 w-full md:max-w-lg bg-zinc-900 md:rounded-2xl rounded-t-2xl max-h-[90vh] overflow-y-auto animate-slide-up">
+          <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={handleCloseForm}></div>
+          <div className="relative z-10 w-full md:max-w-md bg-zinc-900 md:rounded-2xl rounded-t-2xl max-h-[90vh] overflow-y-auto animate-slide-up border border-zinc-800/50">
             <ExpenseForm expense={editingExpense} onClose={handleCloseForm} userId={user?.id} />
           </div>
         </div>

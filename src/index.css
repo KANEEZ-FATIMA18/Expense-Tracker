@@ -7,24 +7,21 @@
   }
   
   .animate-fade-in-up {
-    animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
-  }
-  
-  .animate-scale-in {
-    animation: scaleIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
   }
   
   .animate-slide-up {
     animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
   }
-  
-  .animate-shake {
-    animation: shake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
-  }
 
   /* Glass Effect */
   .glass {
-    @apply bg-white/5 backdrop-blur-xl border border-white/10;
+    @apply bg-white/5 backdrop-blur-2xl border border-white/10;
+  }
+
+  /* Gradient Text */
+  .text-gradient {
+    @apply bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent;
   }
 
   /* Keyframes */
@@ -35,22 +32,11 @@
   
   @keyframes fadeInUp {
     0% { 
-      transform: translateY(20px); 
+      transform: translateY(15px); 
       opacity: 0; 
     }
     100% { 
       transform: translateY(0); 
-      opacity: 1; 
-    }
-  }
-  
-  @keyframes scaleIn {
-    0% { 
-      transform: scale(0.95); 
-      opacity: 0; 
-    }
-    100% { 
-      transform: scale(1); 
       opacity: 1; 
     }
   }
@@ -63,30 +49,24 @@
       transform: translateY(0); 
     }
   }
-  
-  @keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    10%, 30%, 50%, 70%, 90% { transform: translateX(-4px); }
-    20%, 40%, 60%, 80% { transform: translateX(4px); }
-  }
 }
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #0a0a0a;
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #22c55e;
-  border-radius: 4px;
+  background: #27272a;
+  border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #16a34a;
+  background: #3f3f46;
 }
 
 /* Smooth Scroll */
@@ -107,18 +87,20 @@ input[type="number"] {
 
 /* Better Focus Styles */
 *:focus-visible {
-  outline: 2px solid #22c55e;
+  outline: 2px solid #10b981;
   outline-offset: 2px;
 }
 
 /* Selection Color */
 ::selection {
-  background-color: #22c55e;
+  background-color: #10b981;
   color: #000;
 }
 
 /* Body */
 body {
-  background-color: #000;
-  color: #fff;
+  background: linear-gradient(to bottom, #09090b, #000);
+  color: #fafafa;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
