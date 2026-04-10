@@ -10,6 +10,7 @@ import {
   Calendar,
   DollarSign
 } from 'lucide-react';
+import toast from 'react-hot-toast';
 
 const ExpenseForm = ({ expense, onClose, userId }) => {
   const dispatch = useDispatch();
@@ -100,12 +101,14 @@ const ExpenseForm = ({ expense, onClose, userId }) => {
     try {
       if (expense) {
         await dispatch(updateExpense({ id: expense.id, ...expenseData })).unwrap();
+        toast.success('Transaction updated');
       } else {
         await dispatch(addExpense(expenseData)).unwrap();
+        toast.success('Transaction added');
       }
       onClose();
     } catch (err) {
-      console.error('Error saving transaction:', err);
+      toast.error(err.message || 'Failed to save transaction');
     }
   };
 

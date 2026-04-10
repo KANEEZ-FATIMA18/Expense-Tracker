@@ -14,6 +14,7 @@ import {
   ArrowDownRight,
   CreditCard
 } from 'lucide-react';
+import toast from 'react-hot-toast';
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -45,6 +46,7 @@ const Dashboard = () => {
 
   const handleSignOut = () => {
     dispatch(signOut());
+    toast.success('Signed out successfully');
   };
 
   const formatCurrency = (amount) => {

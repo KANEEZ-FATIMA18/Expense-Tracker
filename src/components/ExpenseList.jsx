@@ -1,14 +1,42 @@
 import { useDispatch } from 'react-redux';
 import { deleteExpense } from '../store/expensesSlice';
 import { TrendingUp, TrendingDown, Edit3, Trash2, Receipt } from 'lucide-react';
+import toast from 'react-hot-toast';
 
 const ExpenseList = ({ expenses, onEdit }) => {
   const dispatch = useDispatch();
 
   const handleDelete = (id) => {
-    if (window.confirm('Are you sure you want to delete this transaction?')) {
-      dispatch(deleteExpense(id));
-    }
+    toast((t) => (
+      <div className="flex items-center gap-3">
+        <span className="text-sm">Delete this transaction?</span>
+        <div className="flex gap-2 ml-auto">
+          <button
+            onClick={() => {
+              dispatch(deleteExpense(id));
+              toast.success('Transaction deleted');
+              toast.dismiss(t.id);
+            }}
+            className="px-3 py-1 bg-red-500 text-white text-xs font-medium rounded-md hover:bg-red-400 transition-colors"
+          >
+            Delete
+          </button>
+          <button
+            onClick={() => toast.dismiss(t.id)}
+            className="px-3 py-1 bg-zinc-700 text-zinc-300 text-xs font-medium rounded-md hover:bg-zinc-600 transition-colors"
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+    ), {
+      duration: 5000,
+      style: {
+        background: '#18181b',
+        color: '#fafafa',
+        border: '1px solid #27272a',
+      },
+    });
   };
 
   const formatCurrency = (amount) => {
